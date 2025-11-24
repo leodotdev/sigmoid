@@ -1,3 +1,4 @@
 name = "sigmoid"
+compatibility_date = "2024-11-24"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".vercel/output/static"
