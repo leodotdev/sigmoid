@@ -41,15 +41,17 @@ export function PublicationsGrid({ entries }: PublicationsGridProps) {
     const currentRow = Math.floor(index / gridCols);
     const currentCol = index % gridCols;
 
-    // Calculate 2D Euclidean distance
+    // Calculate 2D Euclidean distance (ripple emanates from center)
     const distance = Math.sqrt(
       Math.pow(currentRow - hoveredRow, 2) + Math.pow(currentCol - hoveredCol, 2)
     );
 
-    const midpoint = 2.5;
-    const steepness = 1.5;
-    const minScale = 0.95;
+    // Sigmoid parameters for ripple effect
+    const midpoint = 1.5; // Lower = tighter ripple around center
+    const steepness = 2; // Higher = more pronounced falloff
+    const minScale = 0.92; // Lower = more dramatic scaling
 
+    // Sigmoid function: items further from hovered item scale down
     const sigmoid = 1 / (1 + Math.exp(-steepness * (distance - midpoint)));
     const scale = 1 - (1 - minScale) * sigmoid;
 
