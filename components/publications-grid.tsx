@@ -64,9 +64,12 @@ export function PublicationsGrid({ entries }: PublicationsGridProps) {
         <a
           key={entry.id}
           href={entry.href || "#"}
-          className="group block p-5 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 ease-out"
+          className="group block p-5 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-[border-color] duration-200"
           style={{
-            transform: `scale(${calculateScale(index)})`,
+            transform: `scale3d(${calculateScale(index)}, ${calculateScale(index)}, 1)`,
+            transformOrigin: "center center",
+            willChange: hoveredIndex !== null ? "transform" : "auto",
+            transition: "transform 300ms cubic-bezier(0.4, 0, 0.2, 1)",
           }}
           onMouseEnter={() => setHoveredIndex(index)}
           onMouseLeave={() => setHoveredIndex(null)}
