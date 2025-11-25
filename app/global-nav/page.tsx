@@ -175,7 +175,7 @@ const GlobalNav = ({
     if (!config.showTryClaude) return null;
 
     const dropdownContent = (
-      <div className="absolute top-full left-0 mt-2 w-56 bg-zinc-900 rounded-lg shadow-xl py-2 text-white z-50">
+      <div className="absolute top-full left-0 mt-1 w-56 bg-zinc-900 rounded-lg shadow-xl py-2 text-white z-50">
         <div className="px-3 py-1 text-xs text-zinc-500 uppercase tracking-wider">Products</div>
         <a href="#" className="flex items-center justify-between px-3 py-2 hover:bg-zinc-800">
           Claude <ExternalIcon />
@@ -193,12 +193,13 @@ const GlobalNav = ({
           Contact sales <ExternalIcon />
         </a>
         <div className="border-t border-zinc-800 my-2" />
-        <div className="px-3 py-1 text-xs text-zinc-500">Models</div>
+        <div className="px-3 py-1 text-xs text-zinc-500 uppercase tracking-wider">Models</div>
         <a href="#" className="block px-3 py-2 hover:bg-zinc-800">Opus</a>
         <a href="#" className="block px-3 py-2 hover:bg-zinc-800">Sonnet</a>
         <a href="#" className="block px-3 py-2 hover:bg-zinc-800">Haiku</a>
         <div className="border-t border-zinc-800 my-2" />
-        <a href="#" className="block px-3 py-2 hover:bg-zinc-800 text-zinc-400">Log in</a>
+        <div className="px-3 py-1 text-xs text-zinc-500 uppercase tracking-wider">Login</div>
+        <a href="#" className="block px-3 py-2 hover:bg-zinc-800">Log in</a>
         <a href="#" className="flex items-center justify-between px-3 py-2 hover:bg-zinc-800">
           Claude.ai <ExternalIcon />
         </a>
