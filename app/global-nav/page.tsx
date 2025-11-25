@@ -688,29 +688,9 @@ export default function GlobalNavPage() {
 
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'Anthropic Sans', sans-serif" }}>
-      {/* Preview Area - Fixed at top or bottom based on minimized state */}
-      <div
-        className={`fixed left-0 right-0 z-30 bg-white transition-all duration-300 ${
-          navMinimized ? "bottom-0 top-auto" : "top-0"
-        }`}
-      >
-        <div className="relative">
-          <GlobalNav config={navConfig} onMenuOpen={() => setMenuOpen(true)} />
-        </div>
-        {/* Minimize/Maximize toggle */}
-        <button
-          onClick={() => setNavMinimized(!navMinimized)}
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 text-zinc-400 hover:text-zinc-600 transition-colors"
-          title={navMinimized ? "Move nav to top" : "Move nav to bottom"}
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {navMinimized ? (
-              <path d="M8 4L12 8L8 12M8 4L4 8L8 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" transform="rotate(-90 8 8)" />
-            ) : (
-              <path d="M8 4L12 8L8 12M8 4L4 8L8 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" transform="rotate(90 8 8)" />
-            )}
-          </svg>
-        </button>
+      {/* Nav Preview - Always fixed at top */}
+      <div className="fixed top-0 left-0 right-0 z-30 bg-white">
+        <GlobalNav config={navConfig} onMenuOpen={() => setMenuOpen(true)} />
       </div>
 
       {/* Drawer Menu */}
@@ -721,11 +701,37 @@ export default function GlobalNavPage() {
         navConfig={navConfig}
       />
 
-      {/* Controls */}
-      <div className={`max-w-6xl mx-auto px-6 py-8 ${navMinimized ? "pb-24" : "pt-24"}`}>
-        <h1 className="text-2xl font-semibold mb-8">Global Nav Configurator</h1>
+      {/* Controls Panel */}
+      <div
+        className={`fixed left-0 right-0 z-20 bg-white border-t border-zinc-200 transition-all duration-300 ease-out ${
+          navMinimized
+            ? "bottom-0 h-12"
+            : "bottom-0 h-[70vh] overflow-auto"
+        }`}
+      >
+        {/* Minimize/Expand toggle bar */}
+        <button
+          onClick={() => setNavMinimized(!navMinimized)}
+          className="w-full h-12 flex items-center justify-center gap-2 text-sm text-zinc-500 hover:text-zinc-700 hover:bg-zinc-50 transition-colors border-b border-zinc-100"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            className={`transition-transform duration-300 ${navMinimized ? "rotate-180" : ""}`}
+          >
+            <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          {navMinimized ? "Show Controls" : "Hide Controls"}
+        </button>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Controls content */}
+        {!navMinimized && (
+          <div className="max-w-6xl mx-auto px-6 py-6 pb-8">
+            <h1 className="text-xl font-semibold mb-6">Global Nav Configurator</h1>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Logo Controls */}
           <div className="bg-white rounded-xl p-6 shadow-sm space-y-6">
             <ControlSection title="Logo">
@@ -972,13 +978,15 @@ export default function GlobalNavPage() {
           </div>
         </div>
 
-        {/* Current Config Display */}
-        <div className="mt-8 bg-white rounded-xl p-6 shadow-sm">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-500 mb-4">Current Configuration</h3>
-          <pre className="text-xs bg-zinc-50 p-4 rounded-lg overflow-x-auto">
+            {/* Current Config Display */}
+            <div className="mt-6 bg-zinc-50 rounded-xl p-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Current Configuration</h3>
+              <pre className="text-xs overflow-x-auto">
 {JSON.stringify({ navConfig, menuConfig }, null, 2)}
-          </pre>
-        </div>
+              </pre>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
