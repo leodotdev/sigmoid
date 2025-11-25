@@ -175,7 +175,7 @@ const GlobalNav = ({
     if (!config.showTryClaude) return null;
 
     const dropdownContent = (
-      <div className="absolute top-full right-0 mt-2 w-56 bg-zinc-900 rounded-lg shadow-xl py-2 text-white z-50">
+      <div className="absolute top-full left-0 mt-2 w-56 bg-zinc-900 rounded-lg shadow-xl py-2 text-white z-50">
         <div className="px-3 py-1 text-xs text-zinc-500 uppercase tracking-wider">Products</div>
         <a href="#" className="flex items-center justify-between px-3 py-2 hover:bg-zinc-800">
           Claude <ExternalIcon />
