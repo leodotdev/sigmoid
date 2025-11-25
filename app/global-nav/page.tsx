@@ -291,7 +291,7 @@ const GlobalNav = ({
   // Different layout configurations
   if (config.navLayout === "logo-left-nav-center") {
     return (
-      <nav className="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
+      <nav className="flex items-center justify-between px-6 py-4">
         <div className="flex-1">
           {renderLogo()}
         </div>
@@ -309,7 +309,7 @@ const GlobalNav = ({
 
   if (config.logoPosition === "center") {
     return (
-      <nav className="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
+      <nav className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-4">
           {config.tryClaudePosition === "left" && renderTryClaude()}
           {renderNavItems()}
@@ -327,7 +327,7 @@ const GlobalNav = ({
 
   // Default: logo left
   return (
-    <nav className="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
+    <nav className="flex items-center justify-between px-6 py-4">
       <div className="flex items-center gap-6">
         {renderLogo()}
         {renderNavItems()}
