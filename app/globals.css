@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: 'Anthropic Sans';
+  src: url('/AnthropicSans20250722-Variable.woff2') format('woff2'),
+       url('/AnthropicSans20250722-Variable.woff') format('woff'),
+       url('/AnthropicSans20250722-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
