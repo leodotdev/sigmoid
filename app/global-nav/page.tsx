@@ -841,28 +841,8 @@ export default function GlobalNavPage() {
             </ControlSection>
           </div>
 
-          {/* Icons & Menu Controls */}
+          {/* Menu Controls */}
           <div className="bg-white rounded-xl p-6 shadow-sm space-y-6">
-            <ControlSection title="Icon Buttons">
-              <div className="space-y-2">
-                <Checkbox
-                  label="Grid icon"
-                  checked={navConfig.showGridIcon}
-                  onChange={(v) => updateNavConfig("showGridIcon", v)}
-                />
-                <Checkbox
-                  label="Search icon"
-                  checked={navConfig.showSearchIcon}
-                  onChange={(v) => updateNavConfig("showSearchIcon", v)}
-                />
-                <Checkbox
-                  label="Menu icon"
-                  checked={navConfig.showMenuIcon}
-                  onChange={(v) => updateNavConfig("showMenuIcon", v)}
-                />
-              </div>
-            </ControlSection>
-
             <ControlSection title="Drawer Menu">
               <div className="space-y-4">
                 <div>
