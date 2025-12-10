@@ -10,6 +10,15 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Anthropic Serif';
+  src: url('/AnthropicSerif20250722-Variable.woff2') format('woff2'),
+       url('/AnthropicSerif20250722-Variable.woff') format('woff'),
+       url('/AnthropicSerif20250722-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
