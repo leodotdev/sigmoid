@@ -732,7 +732,7 @@ const ConnectionsPanel = ({
               </span>
               <span
                 className="px-2 py-0.5 rounded-full border"
-                style={{ fontSize: '11px', borderColor: colors.borderPrimary, color: colors.fgTertiary }}
+                style={{ fontSize: '11px', borderColor: colors.borderPrimary, color: colors.fgTertiary, fontFamily: "'Anthropic Mono', monospace" }}
               >
                 12 POSTS
               </span>
@@ -740,13 +740,15 @@ const ConnectionsPanel = ({
           </div>
           <button
             onClick={onClose}
-            className="transition-colors flex items-center justify-center"
+            className="transition-colors flex items-center justify-center cursor-pointer"
             style={{
-              color: colors.fgTertiary,
-              backgroundColor: colors.bgTertiary,
+              color: '#4D4C48',
+              backgroundColor: '#E8E6DC',
               width: '36px',
               height: '36px',
               borderRadius: '10px',
+              // @ts-expect-error - cornerShape is a newer CSS property
+              cornerShape: 'squircle',
             }}
           >
             <CloseIcon />
@@ -790,6 +792,7 @@ const ConnectionsPanel = ({
                     className="px-2 py-0.5 rounded-full border transition-colors duration-200"
                     style={{
                       fontSize: '11px',
+                      fontFamily: "'Anthropic Mono', monospace",
                       borderColor: isHighlighted ? '#C4C7A6' : colors.borderPrimary,
                       backgroundColor: isHighlighted ? '#E8EACE' : 'transparent',
                       color: isHighlighted ? '#5C5F45' : colors.fgTertiary,
@@ -797,7 +800,7 @@ const ConnectionsPanel = ({
                   >
                     {item.category}
                   </span>
-                  {item.date && (
+                  {item.date && isHighlighted && (
                     <span className="text-xs" style={{ color: colors.fgTertiary }}>
                       {item.date}
                     </span>
@@ -807,6 +810,19 @@ const ConnectionsPanel = ({
             );
           })}
         </div>
+      </div>
+
+      {/* Footer with counts */}
+      <div
+        className="sticky bottom-0 px-6 py-4 flex items-center justify-between"
+        style={{ backgroundColor: '#F0EEE6' }}
+      >
+        <span style={{ fontSize: '11px', color: colors.fgTertiary, fontFamily: "'Anthropic Mono', monospace" }}>
+          15 PAPERS
+        </span>
+        <span style={{ fontSize: '11px', color: colors.fgTertiary, fontFamily: "'Anthropic Mono', monospace" }}>
+          43 ARTICLES
+        </span>
       </div>
     </div>
   );
