@@ -856,29 +856,39 @@ export default function NavPage() {
       {/* Navigation Bar */}
       <nav className="flex items-center justify-between px-8 py-6 min-[960px]:px-20 min-[960px]:py-8">
         {/* Left - Nav Items */}
-        <div className="flex items-center gap-2 flex-1">
+        <div className="flex items-center gap-3 flex-1">
+          {/* Very small screens: Logo on left */}
+          <div className={connectionsPanelOpen ? "min-[880px]:hidden" : "min-[480px]:hidden"}>
+            <StaggerItem index={0} mounted={mounted}>
+              <Logo panelOpen={connectionsPanelOpen} />
+            </StaggerItem>
+          </div>
           {/* Mobile: 3-dot menu */}
-          <div className="min-[640px]:hidden">
+          <div className={connectionsPanelOpen ? "min-[1040px]:hidden" : "min-[640px]:hidden"}>
             <StaggerItem index={1} mounted={mounted}><NavMenuDropdown /></StaggerItem>
           </div>
           {/* Desktop: Nav buttons */}
-          <div className="hidden min-[640px]:flex items-center gap-2">
+          <div className={connectionsPanelOpen ? "hidden min-[1040px]:flex items-center gap-2" : "hidden min-[640px]:flex items-center gap-2"}>
             <StaggerItem index={1} mounted={mounted}><NavButton active>Research</NavButton></StaggerItem>
             <StaggerItem index={2} mounted={mounted}><NavButton>News</NavButton></StaggerItem>
             <StaggerItem index={3} mounted={mounted}><NavButton>Policy</NavButton></StaggerItem>
           </div>
         </div>
 
-        {/* Center - Logo */}
-        <StaggerItem index={0} mounted={mounted}>
-          <div className="flex-shrink-0">
-            <Logo panelOpen={connectionsPanelOpen} />
-          </div>
-        </StaggerItem>
+        {/* Center - Logo (hidden on very small screens) */}
+        <div className={connectionsPanelOpen ? "hidden min-[880px]:block" : "hidden min-[480px]:block"}>
+          <StaggerItem index={0} mounted={mounted}>
+            <div className="flex-shrink-0">
+              <Logo panelOpen={connectionsPanelOpen} />
+            </div>
+          </StaggerItem>
+        </div>
 
         {/* Right - Try Claude + Icons */}
         <div className="flex items-center gap-4 flex-1 justify-end">
-          <StaggerItem index={4} mounted={mounted}><TryClaudeDropdown /></StaggerItem>
+          <div className={connectionsPanelOpen ? "hidden min-[1040px]:block" : "hidden min-[640px]:block"}>
+            <StaggerItem index={4} mounted={mounted}><TryClaudeDropdown /></StaggerItem>
+          </div>
           <div className="flex items-center gap-2">
             <StaggerItem index={5} mounted={mounted}><IconButton><GridIcon /></IconButton></StaggerItem>
             <StaggerItem index={6} mounted={mounted}><IconButton><SearchIcon /></IconButton></StaggerItem>
