@@ -44,33 +44,19 @@ const getCategoryColor = (category: string): string => {
 
 // Icons
 const ChevronDown = () => (
-  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
+  <Image src="/icons/Caret Down Small.svg" alt="" width={20} height={20} />
 );
 
-const GridIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="3" y="3" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-    <rect x="11" y="3" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-    <rect x="3" y="11" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-    <rect x="11" y="11" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-  </svg>
+const ClaudificationIcon = () => (
+  <Image src="/icons/Claudification.svg" alt="" width={20} height={20} />
 );
 
 const SearchIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M13 13L16 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
+  <Image src="/icons/Search.svg" alt="" width={20} height={20} />
 );
 
 const MenuIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M3 6H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-    <path d="M3 10H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-    <path d="M3 14H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
+  <Image src="/icons/Menu - 24.svg" alt="" width={24} height={24} />
 );
 
 const MoreDotsIcon = () => (
@@ -307,10 +293,7 @@ const Logo = ({ panelOpen = false }: { panelOpen?: boolean }) => (
 
 // Close Icon
 const CloseIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M5 5L15 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-    <path d="M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
+  <Image src="/icons/X.svg" alt="" width={20} height={20} />
 );
 
 // Main active constellation - 12 nodes arranged in a cluster, each node = one list item
@@ -819,7 +802,7 @@ export default function NavPage() {
             <StaggerItem index={4} mounted={mounted}><TryClaudeDropdown /></StaggerItem>
           </div>
           <div className="flex items-center gap-2">
-            <StaggerItem index={5} mounted={mounted}><IconButton><GridIcon /></IconButton></StaggerItem>
+            <StaggerItem index={5} mounted={mounted}><IconButton><ClaudificationIcon /></IconButton></StaggerItem>
             <StaggerItem index={6} mounted={mounted}><IconButton><SearchIcon /></IconButton></StaggerItem>
             <StaggerItem index={7} mounted={mounted}><IconButton><MenuIcon /></IconButton></StaggerItem>
           </div>
