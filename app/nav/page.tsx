@@ -44,19 +44,19 @@ const getCategoryColor = (category: string): string => {
 
 // Icons
 const ChevronDown = () => (
-  <Image src="/icons/Caret Down Small.svg" alt="" width={20} height={20} />
+  <Image src="/icons/caret-down-small.svg" alt="" width={20} height={20} />
 );
 
 const ClaudificationIcon = () => (
-  <Image src="/icons/Claudification.svg" alt="" width={20} height={20} />
+  <Image src="/icons/claudification.svg" alt="" width={20} height={20} />
 );
 
 const SearchIcon = () => (
-  <Image src="/icons/Search.svg" alt="" width={20} height={20} />
+  <Image src="/icons/search.svg" alt="" width={20} height={20} />
 );
 
 const MenuIcon = () => (
-  <Image src="/icons/Menu - 24.svg" alt="" width={24} height={24} />
+  <Image src="/icons/menu-24.svg" alt="" width={20} height={20} />
 );
 
 const MoreDotsIcon = () => (
@@ -228,7 +228,7 @@ const Logo = ({ panelOpen = false }: { panelOpen?: boolean }) => (
 
 // Close Icon
 const CloseIcon = () => (
-  <Image src="/icons/X.svg" alt="" width={20} height={20} />
+  <Image src="/icons/x.svg" alt="" width={20} height={20} />
 );
 
 // Main active constellation - 12 nodes arranged in a cluster, each node = one list item
