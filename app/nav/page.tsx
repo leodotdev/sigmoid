@@ -186,13 +186,22 @@ const NavMenuDropdown = () => {
 
 // Try Claude Link
 const TryClaude = () => (
-  <a
-    href="#"
-    className="text-sm transition-all duration-150 hover:opacity-70 active:opacity-50"
-    style={{ fontWeight: 500, color: colors.fgPrimary }}
-  >
-    Try Claude
-  </a>
+  <div className="flex items-center gap-3">
+    <a
+      href="#"
+      className="text-sm transition-all duration-150 hover:opacity-70 active:opacity-50"
+      style={{ fontWeight: 500, color: colors.fgPrimary }}
+    >
+      Try Claude
+    </a>
+    <div style={{ width: '1px', height: '20px', backgroundColor: colors.borderPrimary }} />
+    <button
+      className="p-1 transition-all duration-150 hover:opacity-70 active:opacity-50"
+      style={{ color: colors.fgTertiary }}
+    >
+      <ChevronDown />
+    </button>
+  </div>
 );
 
 // Logo
