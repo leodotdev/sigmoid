@@ -67,12 +67,6 @@ const MoreDotsIcon = () => (
   </svg>
 );
 
-const ExternalIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9 3L3 9M9 3V7M9 3H5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
 // Nav Button component (Button/Tertiary style)
 const NavButton = ({
   children,
@@ -190,84 +184,16 @@ const NavMenuDropdown = () => {
   );
 };
 
-// Try Claude Dropdown
-const TryClaudeDropdown = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node) &&
-          buttonRef.current && !buttonRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  return (
-    <div className="relative">
-      <div ref={buttonRef} className="flex items-center gap-3">
-        <a
-          href="#"
-          className="text-sm transition-all duration-150 hover:opacity-70 active:opacity-50"
-          style={{ fontWeight: 500, color: colors.fgPrimary }}
-        >
-          Try Claude
-        </a>
-        <div style={{ width: '1px', height: '20px', backgroundColor: colors.borderPrimary }} />
-        <button
-          className="p-1 transition-all duration-150 hover:text-[#1A1916] active:text-[#1A1916]"
-          style={{ color: colors.fgTertiary }}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <ChevronDown />
-        </button>
-      </div>
-
-      {isOpen && (
-        <div
-          ref={dropdownRef}
-          className="absolute top-full right-0 mt-2 w-56 bg-zinc-900 rounded-lg shadow-xl py-2 text-white z-50"
-        >
-          <div className="px-3 py-1.5 text-xs text-zinc-500 uppercase tracking-wider">Products</div>
-          <a href="#" className="flex items-center justify-between px-3 py-2 hover:bg-zinc-800 text-sm">
-            Claude <ExternalIcon />
-          </a>
-          <a href="#" className="flex items-center justify-between px-3 py-2 hover:bg-zinc-800 text-sm">
-            Claude Code <ExternalIcon />
-          </a>
-          <a href="#" className="flex items-center justify-between px-3 py-2 hover:bg-zinc-800 text-sm">
-            Claude Developer Platform <ExternalIcon />
-          </a>
-          <a href="#" className="flex items-center justify-between px-3 py-2 hover:bg-zinc-800 text-sm">
-            Pricing <ExternalIcon />
-          </a>
-          <a href="#" className="flex items-center justify-between px-3 py-2 hover:bg-zinc-800 text-sm">
-            Contact sales <ExternalIcon />
-          </a>
-          <div className="border-t border-zinc-800 my-2" />
-          <div className="px-3 py-1.5 text-xs text-zinc-500 uppercase tracking-wider">Models</div>
-          <a href="#" className="block px-3 py-2 hover:bg-zinc-800 text-sm">Opus</a>
-          <a href="#" className="block px-3 py-2 hover:bg-zinc-800 text-sm">Sonnet</a>
-          <a href="#" className="block px-3 py-2 hover:bg-zinc-800 text-sm">Haiku</a>
-          <div className="border-t border-zinc-800 my-2" />
-          <div className="px-3 py-1.5 text-xs text-zinc-500 uppercase tracking-wider">Login</div>
-          <a href="#" className="block px-3 py-2 hover:bg-zinc-800 text-sm">Log in</a>
-          <a href="#" className="flex items-center justify-between px-3 py-2 hover:bg-zinc-800 text-sm">
-            Claude.ai <ExternalIcon />
-          </a>
-          <a href="#" className="flex items-center justify-between px-3 py-2 hover:bg-zinc-800 text-sm">
-            Claude Console <ExternalIcon />
-          </a>
-        </div>
-      )}
-    </div>
-  );
-};
+// Try Claude Link
+const TryClaude = () => (
+  <a
+    href="#"
+    className="text-sm transition-all duration-150 hover:opacity-70 active:opacity-50"
+    style={{ fontWeight: 500, color: colors.fgPrimary }}
+  >
+    Try Claude
+  </a>
+);
 
 // Logo
 const Logo = ({ panelOpen = false }: { panelOpen?: boolean }) => (
@@ -799,7 +725,7 @@ export default function NavPage() {
         {/* Right - Try Claude + Icons */}
         <div className="flex items-center gap-4 flex-1 justify-end">
           <div className={connectionsPanelOpen ? "hidden min-[1040px]:block" : "hidden min-[640px]:block"}>
-            <StaggerItem index={4} mounted={mounted}><TryClaudeDropdown /></StaggerItem>
+            <StaggerItem index={4} mounted={mounted}><TryClaude /></StaggerItem>
           </div>
           <div className="flex items-center gap-2">
             <StaggerItem index={5} mounted={mounted}><IconButton><ClaudificationIcon /></IconButton></StaggerItem>
