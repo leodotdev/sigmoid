@@ -29,6 +29,19 @@ const colors = {
   clayInteractive: "#C6613F",
 };
 
+// Category tag colors
+const categoryColors: Record<string, string> = {
+  "POLICY": "#788C5D",
+  "ALIGNMENT": "#788C5D",
+  "INTERPRETABILITY": "#6A9BCC",
+  "ECONOMIC RESEARCH": "#C46686",
+  "SOCIETAL IMPACTS": "#C46686",
+};
+
+const getCategoryColor = (category: string): string => {
+  return categoryColors[category] || "#5E5D59";
+};
+
 // Icons
 const ChevronDown = () => (
   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -300,175 +313,124 @@ const CloseIcon = () => (
   </svg>
 );
 
-// Constellation clusters - each cluster is associated with a card
-const constellationClusters = [
-  // Cluster 0 - associated with first card (Project Fetch - robot dog)
-  {
-    id: 0,
-    nodes: [
-      { id: 'c0-0', x: -20, y: 0, size: 4 },
-      { id: 'c0-1', x: 0, y: 20, size: 4 },
-      { id: 'c0-2', x: 25, y: 5, size: 4 },
-      { id: 'c0-3', x: 10, y: -15, size: 4 },
-    ],
-    edges: [[0, 1], [1, 2], [2, 3], [0, 3]],
-    baseX: 80,
-    baseY: 220,
-  },
-  // Cluster 1
-  {
-    id: 1,
-    nodes: [
-      { id: 'c1-0', x: 0, y: 0, size: 3 },
-      { id: 'c1-1', x: 20, y: -15, size: 3 },
-      { id: 'c1-2', x: 40, y: 5, size: 3 },
-      { id: 'c1-3', x: 25, y: 20, size: 3 },
-    ],
-    edges: [[0, 1], [1, 2], [2, 3], [0, 3], [1, 3]],
-    baseX: 100,
-    baseY: 60,
-  },
-  // Cluster 2
-  {
-    id: 2,
-    nodes: [
-      { id: 'c2-0', x: 0, y: 0, size: 3 },
-      { id: 'c2-1', x: 25, y: -10, size: 3 },
-      { id: 'c2-2', x: 15, y: 15, size: 3 },
-    ],
-    edges: [[0, 1], [1, 2], [0, 2]],
-    baseX: 200,
-    baseY: 50,
-  },
-  // Cluster 3 - large central cluster
-  {
-    id: 3,
-    nodes: [
-      { id: 'c3-0', x: 0, y: 0, size: 3 },
-      { id: 'c3-1', x: 25, y: -20, size: 3 },
-      { id: 'c3-2', x: 50, y: -5, size: 3 },
-      { id: 'c3-3', x: 45, y: 25, size: 3 },
-      { id: 'c3-4', x: 20, y: 35, size: 3 },
-      { id: 'c3-5', x: -10, y: 20, size: 3 },
-    ],
-    edges: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 0], [0, 3], [1, 4]],
-    baseX: 140,
-    baseY: 130,
-  },
-  // Cluster 4
-  {
-    id: 4,
-    nodes: [
-      { id: 'c4-0', x: 0, y: 0, size: 3 },
-      { id: 'c4-1', x: 20, y: 15, size: 3 },
-      { id: 'c4-2', x: -5, y: 25, size: 3 },
-    ],
-    edges: [[0, 1], [1, 2], [0, 2]],
-    baseX: 60,
-    baseY: 100,
-  },
-  // Cluster 5
-  {
-    id: 5,
-    nodes: [
-      { id: 'c5-0', x: 0, y: 0, size: 3 },
-      { id: 'c5-1', x: 30, y: 5, size: 3 },
-      { id: 'c5-2', x: 15, y: 25, size: 3 },
-      { id: 'c5-3', x: 40, y: 30, size: 3 },
-    ],
-    edges: [[0, 1], [1, 2], [2, 3], [1, 3]],
-    baseX: 220,
-    baseY: 120,
-  },
-  // Cluster 6
-  {
-    id: 6,
-    nodes: [
-      { id: 'c6-0', x: 0, y: 0, size: 3 },
-      { id: 'c6-1', x: 15, y: 20, size: 3 },
-      { id: 'c6-2', x: -10, y: 25, size: 3 },
-    ],
-    edges: [[0, 1], [0, 2]],
-    baseX: 65,
-    baseY: 180,
-  },
-  // Cluster 7
-  {
-    id: 7,
-    nodes: [
-      { id: 'c7-0', x: 0, y: 0, size: 3 },
-      { id: 'c7-1', x: 25, y: -5, size: 3 },
-      { id: 'c7-2', x: 35, y: 20, size: 3 },
-      { id: 'c7-3', x: 10, y: 25, size: 3 },
-    ],
-    edges: [[0, 1], [1, 2], [2, 3], [3, 0]],
-    baseX: 180,
-    baseY: 200,
-  },
-  // Cluster 8
-  {
-    id: 8,
-    nodes: [
-      { id: 'c8-0', x: 0, y: 0, size: 3 },
-      { id: 'c8-1', x: 20, y: 15, size: 3 },
-    ],
-    edges: [[0, 1]],
-    baseX: 260,
-    baseY: 180,
-  },
-  // Cluster 9
-  {
-    id: 9,
-    nodes: [
-      { id: 'c9-0', x: 0, y: 0, size: 3 },
-      { id: 'c9-1', x: 25, y: 10, size: 3 },
-      { id: 'c9-2', x: 15, y: -15, size: 3 },
-    ],
-    edges: [[0, 1], [0, 2], [1, 2]],
-    baseX: 120,
-    baseY: 240,
-  },
-  // Cluster 10
-  {
-    id: 10,
-    nodes: [
-      { id: 'c10-0', x: 0, y: 0, size: 3 },
-      { id: 'c10-1', x: 20, y: -10, size: 3 },
-      { id: 'c10-2', x: 30, y: 15, size: 3 },
-    ],
-    edges: [[0, 1], [1, 2]],
-    baseX: 200,
-    baseY: 260,
-  },
-  // Cluster 11
-  {
-    id: 11,
-    nodes: [
-      { id: 'c11-0', x: 0, y: 0, size: 3 },
-      { id: 'c11-1', x: -15, y: 15, size: 3 },
-      { id: 'c11-2', x: 10, y: 25, size: 3 },
-    ],
-    edges: [[0, 1], [1, 2], [0, 2]],
-    baseX: 270,
-    baseY: 100,
-  },
+// Main active constellation - 12 nodes arranged in a cluster, each node = one list item
+// Positioned in the left area of the SVG
+const activeConstellationNodes = [
+  { id: 0, x: 45, y: 200 },   // Item 1
+  { id: 1, x: 70, y: 175 },   // Item 2
+  { id: 2, x: 55, y: 235 },   // Item 3
+  { id: 3, x: 85, y: 215 },   // Item 4
+  { id: 4, x: 30, y: 220 },   // Item 5
+  { id: 5, x: 60, y: 250 },   // Item 6
+  { id: 6, x: 95, y: 190 },   // Item 7
+  { id: 7, x: 40, y: 260 },   // Item 8
+  { id: 8, x: 75, y: 265 },   // Item 9
+  { id: 9, x: 100, y: 240 },  // Item 10
+  { id: 10, x: 25, y: 245 },  // Item 11
+  { id: 11, x: 110, y: 220 }, // Item 12
 ];
 
-// Scattered dots in a circular pattern
+// Edges connecting the active constellation nodes
+const activeConstellationEdges: [number, number][] = [
+  [0, 1], [0, 2], [0, 4], [1, 6], [2, 3], [2, 5], [3, 9], [4, 10], [5, 7], [5, 8], [7, 10], [8, 9], [3, 11], [6, 11]
+];
+
+// All background nodes in one pool
+const backgroundNodes = [
+  // Top area cluster 1
+  { x: 120, y: 45 }, { x: 145, y: 30 }, { x: 155, y: 55 },
+  // Top area cluster 2
+  { x: 200, y: 50 }, { x: 225, y: 35 }, { x: 240, y: 60 },
+  // Top right
+  { x: 290, y: 55 }, { x: 310, y: 40 }, { x: 320, y: 65 },
+  // Right side upper
+  { x: 300, y: 100 }, { x: 325, y: 85 }, { x: 330, y: 115 },
+  // Right side mid
+  { x: 310, y: 160 }, { x: 335, y: 150 }, { x: 330, y: 180 },
+  // Right side lower
+  { x: 295, y: 220 }, { x: 320, y: 210 }, { x: 310, y: 245 },
+  // Center upper
+  { x: 160, y: 100 }, { x: 185, y: 85 }, { x: 200, y: 110 }, { x: 175, y: 125 },
+  // Center mid-right
+  { x: 240, y: 120 }, { x: 265, y: 105 }, { x: 270, y: 135 },
+  // Center
+  { x: 150, y: 160 }, { x: 175, y: 145 }, { x: 190, y: 170 },
+  // Center lower-right
+  { x: 230, y: 180 }, { x: 255, y: 165 }, { x: 260, y: 195 }, { x: 235, y: 210 },
+  // Bottom center
+  { x: 155, y: 230 }, { x: 180, y: 215 }, { x: 195, y: 240 },
+  // Bottom right
+  { x: 230, y: 265 }, { x: 255, y: 250 }, { x: 265, y: 280 },
+  // Bottom far right
+  { x: 290, y: 285 }, { x: 315, y: 270 }, { x: 320, y: 300 },
+  // Left side upper
+  { x: 80, y: 90 }, { x: 105, y: 75 }, { x: 115, y: 105 },
+  // Left side mid
+  { x: 120, y: 150 }, { x: 145, y: 135 },
+  // Bottom left
+  { x: 135, y: 285 }, { x: 160, y: 295 }, { x: 150, y: 320 },
+];
+
+// Edges - mostly within clusters, only 2-3 cross-cluster connections
+const backgroundEdges: [number, number][] = [
+  // Cluster 1 (top left)
+  [0, 1], [1, 2], [0, 2],
+  // Cluster 2 (top center)
+  [3, 4], [4, 5], [3, 5],
+  // Cluster 3 (top right)
+  [6, 7], [7, 8],
+  // Cluster 4 (right upper)
+  [9, 10], [10, 11], [9, 11],
+  // Cluster 5 (right mid)
+  [12, 13], [13, 14],
+  // Cluster 6 (right lower)
+  [15, 16], [16, 17], [15, 17],
+  // Cluster 7 (center upper)
+  [18, 19], [19, 20], [20, 21], [21, 18], [18, 20],
+  // Cluster 8 (center mid-right)
+  [22, 23], [23, 24], [22, 24],
+  // Cluster 9 (center)
+  [25, 26], [26, 27],
+  // Cluster 10 (center lower-right)
+  [28, 29], [29, 30], [30, 31], [28, 31],
+  // Cluster 11 (bottom center)
+  [32, 33], [33, 34], [32, 34],
+  // Cluster 12 (bottom right)
+  [35, 36], [36, 37],
+  // Cluster 13 (bottom far right)
+  [38, 39], [39, 40], [38, 40],
+  // Cluster 14 (left upper)
+  [41, 42], [42, 43], [41, 43],
+  // Cluster 15 (left mid)
+  [44, 45],
+  // Cluster 16 (bottom left)
+  [46, 47], [47, 48],
+  // Only a few cross-cluster connections
+  [2, 3],    // top left to top center
+  [20, 22],  // center upper to center mid-right
+  [31, 35],  // center lower-right to bottom right
+];
+
+// Scattered dots spread throughout
 const scatteredDots: Array<{ id: string; x: number; y: number; size: number }> = [];
-const centerX = 175;
-const centerY = 170;
-const numDots = 40;
-for (let i = 0; i < numDots; i++) {
-  const angle = (i / numDots) * Math.PI * 2 + Math.random() * 0.3;
-  const radius = 80 + Math.random() * 100;
-  scatteredDots.push({
-    id: `dot-${i}`,
-    x: centerX + Math.cos(angle) * radius,
-    y: centerY + Math.sin(angle) * radius,
-    size: 2.5,
-  });
-}
+const dotPositions = [
+  // Outer ring
+  { x: 25, y: 50 }, { x: 60, y: 35 }, { x: 95, y: 25 }, { x: 175, y: 20 }, { x: 270, y: 25 },
+  { x: 330, y: 50 }, { x: 345, y: 100 }, { x: 350, y: 150 }, { x: 345, y: 200 }, { x: 340, y: 280 },
+  { x: 320, y: 320 }, { x: 250, y: 330 }, { x: 180, y: 325 }, { x: 100, y: 320 }, { x: 40, y: 300 },
+  { x: 20, y: 250 }, { x: 15, y: 180 }, { x: 20, y: 120 }, { x: 25, y: 80 },
+  // Mid ring
+  { x: 55, y: 70 }, { x: 130, y: 60 }, { x: 260, y: 75 }, { x: 310, y: 130 },
+  { x: 325, y: 210 }, { x: 295, y: 300 }, { x: 200, y: 305 }, { x: 120, y: 295 },
+  { x: 35, y: 270 }, { x: 30, y: 160 },
+  // Inner scattered
+  { x: 135, y: 135 }, { x: 250, y: 100 }, { x: 280, y: 180 }, { x: 240, y: 240 },
+  { x: 170, y: 280 }, { x: 105, y: 180 }, { x: 190, y: 140 },
+];
+
+dotPositions.forEach((pos, i) => {
+  scatteredDots.push({ id: `dot-${i}`, x: pos.x, y: pos.y, size: 2.5 });
+});
 
 // Related content data
 const relatedContent = [
@@ -547,135 +509,86 @@ const relatedContent = [
 ];
 
 // Constellation Visualization Component
-const Constellation = ({ hoveredCard }: { hoveredCard: number | null }) => {
-  const [hoveredCluster, setHoveredCluster] = useState<number | null>(null);
-
-  const activeHover = hoveredCard !== null ? hoveredCard : hoveredCluster;
-  const svgCenter = { x: 175, y: 170 };
-
-  // Calculate position for a cluster - when hovered, zoom in; when another is hovered, push to outer ring
-  const getClusterTransform = (cluster: typeof constellationClusters[0], index: number) => {
-    if (activeHover === null) {
-      return { x: cluster.baseX, y: cluster.baseY, scale: 1, opacity: 1 };
-    }
-
-    if (activeHover === index) {
-      // This cluster is hovered - move to center and scale up
-      return { x: svgCenter.x - 20, y: svgCenter.y - 10, scale: 1.8, opacity: 1 };
-    }
-
-    // Another cluster is hovered - push slightly outward
-    const angle = Math.atan2(cluster.baseY - svgCenter.y, cluster.baseX - svgCenter.x);
-    const currentRadius = Math.sqrt(Math.pow(cluster.baseX - svgCenter.x, 2) + Math.pow(cluster.baseY - svgCenter.y, 2));
-    const outerRadius = currentRadius * 1.25;
-    return {
-      x: svgCenter.x + Math.cos(angle) * outerRadius,
-      y: svgCenter.y + Math.sin(angle) * outerRadius,
-      scale: 0.85,
-      opacity: 0.3,
-    };
-  };
-
-  // Calculate dot position - when hovering, push dots slightly outward
-  const getDotTransform = (dot: typeof scatteredDots[0]) => {
-    if (activeHover === null) {
-      return { x: dot.x, y: dot.y, opacity: 0.5 };
-    }
-
-    // Push dots slightly outward
-    const angle = Math.atan2(dot.y - svgCenter.y, dot.x - svgCenter.x);
-    const currentRadius = Math.sqrt(Math.pow(dot.x - svgCenter.x, 2) + Math.pow(dot.y - svgCenter.y, 2));
-    const outerRadius = currentRadius * 1.2;
-    return {
-      x: svgCenter.x + Math.cos(angle) * outerRadius,
-      y: svgCenter.y + Math.sin(angle) * outerRadius,
-      opacity: 0.2,
-    };
-  };
-
+const Constellation = ({
+  activeIndex,
+  onHoverIndex,
+}: {
+  activeIndex: number | null;
+  onHoverIndex: (index: number | null) => void;
+}) => {
   return (
     <svg width="100%" height="340" viewBox="0 0 350 340" className="overflow-visible">
       {/* Draw scattered dots */}
-      {scatteredDots.map((dot) => {
-        const transform = getDotTransform(dot);
-        const offsetX = transform.x - dot.x;
-        const offsetY = transform.y - dot.y;
+      {scatteredDots.map((dot) => (
+        <circle
+          key={dot.id}
+          cx={dot.x}
+          cy={dot.y}
+          r={dot.size}
+          fill={colors.fgTertiary}
+          opacity={0.4}
+        />
+      ))}
+
+      {/* Draw background constellation edges */}
+      {backgroundEdges.map(([fromIdx, toIdx], edgeIndex) => {
+        const from = backgroundNodes[fromIdx];
+        const to = backgroundNodes[toIdx];
         return (
-          <circle
-            key={dot.id}
-            cx={dot.x}
-            cy={dot.y}
-            r={dot.size}
-            fill={colors.fgTertiary}
-            style={{
-              transform: `translate(${offsetX}px, ${offsetY}px)`,
-              opacity: transform.opacity,
-              transition: 'transform 500ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease',
-            }}
+          <line
+            key={`bg-edge-${edgeIndex}`}
+            x1={from.x}
+            y1={from.y}
+            x2={to.x}
+            y2={to.y}
+            stroke={colors.fgTertiary}
+            strokeWidth={0.75}
           />
         );
       })}
 
-      {/* Draw clusters */}
-      {constellationClusters.map((cluster, clusterIndex) => {
-        const transform = getClusterTransform(cluster, clusterIndex);
-        const isActive = activeHover === clusterIndex;
+      {/* Draw background constellation nodes */}
+      {backgroundNodes.map((node, nIdx) => (
+        <circle
+          key={`bg-node-${nIdx}`}
+          cx={node.x}
+          cy={node.y}
+          r={3}
+          fill={colors.fgTertiary}
+        />
+      ))}
 
-        // Calculate bounding box for hit area
-        const minX = Math.min(...cluster.nodes.map(n => n.x)) - 15;
-        const maxX = Math.max(...cluster.nodes.map(n => n.x)) + 15;
-        const minY = Math.min(...cluster.nodes.map(n => n.y)) - 15;
-        const maxY = Math.max(...cluster.nodes.map(n => n.y)) + 15;
-
+      {/* Draw active constellation edges (darker) */}
+      {activeConstellationEdges.map(([fromIdx, toIdx], edgeIndex) => {
+        const from = activeConstellationNodes[fromIdx];
+        const to = activeConstellationNodes[toIdx];
         return (
-          <g
-            key={cluster.id}
-            style={{
-              transform: `translate(${transform.x}px, ${transform.y}px) scale(${transform.scale})`,
-              transformOrigin: '0 0',
-              transition: 'transform 500ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease',
-              opacity: transform.opacity,
-              cursor: 'pointer',
-            }}
-            onMouseEnter={() => setHoveredCluster(clusterIndex)}
-            onMouseLeave={() => setHoveredCluster(null)}
-          >
-            {/* Invisible hit area */}
-            <rect
-              x={minX}
-              y={minY}
-              width={maxX - minX}
-              height={maxY - minY}
-              fill="transparent"
-              rx={8}
-            />
-            {/* Draw edges */}
-            {cluster.edges.map(([fromIdx, toIdx], edgeIndex) => {
-              const from = cluster.nodes[fromIdx];
-              const to = cluster.nodes[toIdx];
-              return (
-                <line
-                  key={`edge-${edgeIndex}`}
-                  x1={from.x}
-                  y1={from.y}
-                  x2={to.x}
-                  y2={to.y}
-                  stroke={isActive ? colors.fgPrimary : colors.fgTertiary}
-                  strokeWidth={isActive ? 1 : 0.75}
-                />
-              );
-            })}
-            {/* Draw nodes */}
-            {cluster.nodes.map((node) => (
-              <circle
-                key={node.id}
-                cx={node.x}
-                cy={node.y}
-                r={node.size}
-                fill={isActive ? colors.fgPrimary : colors.fgTertiary}
-              />
-            ))}
-          </g>
+          <line
+            key={`active-edge-${edgeIndex}`}
+            x1={from.x}
+            y1={from.y}
+            x2={to.x}
+            y2={to.y}
+            stroke={colors.fgPrimary}
+            strokeWidth={1}
+          />
+        );
+      })}
+
+      {/* Draw active constellation nodes (interactive, each = list item) */}
+      {activeConstellationNodes.map((node, index) => {
+        const isHovered = activeIndex === index;
+        return (
+          <circle
+            key={`active-node-${index}`}
+            cx={node.x}
+            cy={node.y}
+            r={isHovered ? 5 : 4}
+            fill={colors.fgPrimary}
+            style={{ cursor: 'pointer', transition: 'r 150ms ease' }}
+            onMouseEnter={() => onHoverIndex(index)}
+            onMouseLeave={() => onHoverIndex(null)}
+          />
         );
       })}
     </svg>
@@ -692,7 +605,7 @@ const ConnectionsPanel = ({
   onClose: () => void;
   keyword: string;
 }) => {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -720,10 +633,10 @@ const ConnectionsPanel = ({
       }}
     >
       {/* Header */}
-      <div className="px-6 pt-4 min-[960px]:px-8 min-[960px]:pt-8 pb-4">
+      <div className="p-8 pb-0">
         <div className="flex items-start justify-between mb-2">
           <div>
-            <p className="text-sm mb-1" style={{ color: colors.fgTertiary }}>
+            <p style={{ fontSize: '20px', lineHeight: '24px', color: '#141413', fontFamily: "'Anthropic Sans', sans-serif" }}>
               Explore the connections:
             </p>
             <div className="flex items-center gap-2">
@@ -731,8 +644,8 @@ const ConnectionsPanel = ({
                 "{keyword}"
               </span>
               <span
-                className="px-2 py-0.5 rounded-full border"
-                style={{ fontSize: '11px', borderColor: colors.borderPrimary, color: colors.fgTertiary, fontFamily: "'Anthropic Mono', monospace" }}
+                className="px-3 pt-1 pb-0.5 rounded-full border inline-flex items-center leading-tight"
+                style={{ fontSize: '11px', borderColor: '#DEDCD1', color: '#5E5D59', fontFamily: "'Anthropic Mono', monospace" }}
               >
                 12 POSTS
               </span>
@@ -754,22 +667,23 @@ const ConnectionsPanel = ({
             <CloseIcon />
           </button>
         </div>
-        <p className="text-xs" style={{ color: colors.fgTertiary }}>
-          powered by <span className="font-semibold" style={{ color: colors.fgPrimary, fontFamily: "'Anthropic Serif', serif" }}>Claude</span>
+        <p className="flex items-baseline gap-1.5" style={{ color: '#5E5D59' }}>
+          <span style={{ fontSize: '10px', lineHeight: '18px', fontFamily: "'Anthropic Sans', sans-serif" }}>powered by</span>
+          <span style={{ fontSize: '20px', lineHeight: '24px', fontFamily: "'Anthropic Serif', serif" }}>Claude</span>
         </p>
       </div>
 
       {/* Constellation */}
-      <div className="px-6 py-4">
-        <Constellation hoveredCard={hoveredCard} />
+      <div className="px-8 py-8">
+        <Constellation activeIndex={hoveredIndex} onHoverIndex={setHoveredIndex} />
       </div>
 
       {/* Related Content */}
-      <div className="p-6">
+      <div className="px-8 pb-8">
         <div className="flex flex-col gap-2">
           {relatedContent.map((item, index) => {
             const isSelected = index === 0;
-            const isHighlighted = hoveredCard === index || isSelected;
+            const isHighlighted = hoveredIndex === index || isSelected;
             return (
               <div
                 key={item.id}
@@ -778,8 +692,8 @@ const ConnectionsPanel = ({
                   backgroundColor: isHighlighted ? colors.bgPrimary : 'transparent',
                   boxShadow: isHighlighted ? '0 0 0 1px ' + colors.borderPrimary : 'none',
                 }}
-                onMouseEnter={() => setHoveredCard(index)}
-                onMouseLeave={() => setHoveredCard(null)}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
                 <h3
                   className="text-sm font-medium mb-3 leading-snug"
@@ -789,13 +703,12 @@ const ConnectionsPanel = ({
                 </h3>
                 <div className="flex items-center gap-2">
                   <span
-                    className="px-2 py-0.5 rounded-full border transition-colors duration-200"
+                    className="px-3 pt-1 pb-0.5 rounded-full border transition-colors duration-200 inline-flex items-center leading-tight"
                     style={{
                       fontSize: '11px',
                       fontFamily: "'Anthropic Mono', monospace",
-                      borderColor: isHighlighted ? '#C4C7A6' : colors.borderPrimary,
-                      backgroundColor: isHighlighted ? '#E8EACE' : 'transparent',
-                      color: isHighlighted ? '#5C5F45' : colors.fgTertiary,
+                      borderColor: isHighlighted ? getCategoryColor(item.category) : '#DEDCD1',
+                      color: isHighlighted ? getCategoryColor(item.category) : '#5E5D59',
                     }}
                   >
                     {item.category}
@@ -814,7 +727,7 @@ const ConnectionsPanel = ({
 
       {/* Footer with counts */}
       <div
-        className="sticky bottom-0 px-6 py-4 flex items-center justify-between"
+        className="sticky bottom-0 px-8 py-8 flex items-center justify-between"
         style={{ backgroundColor: '#F0EEE6' }}
       >
         <span style={{ fontSize: '11px', color: colors.fgTertiary, fontFamily: "'Anthropic Mono', monospace" }}>
@@ -852,7 +765,7 @@ const StaggerItem = ({
 export default function NavPage() {
   const [mounted, setMounted] = useState(false);
   const [connectionsPanelOpen, setConnectionsPanelOpen] = useState(false);
-  const [articleHovered, setArticleHovered] = useState(false);
+  const [robodogHovered, setRobodogHovered] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -917,20 +830,18 @@ export default function NavPage() {
       <article
         className="max-w-[720px] mx-auto px-6 pt-16"
         style={{ fontFamily: "'Anthropic Serif', serif" }}
-        onMouseEnter={() => setArticleHovered(true)}
-        onMouseLeave={() => setArticleHovered(false)}
       >
         <div className="relative">
           {/* Drop Cap */}
           <span
             className="float-left text-[5.5rem] leading-[0.8] mr-3 mt-3 transition-opacity duration-200"
-            style={{ color: colors.fgPrimary, fontWeight: 400, opacity: (articleHovered || connectionsPanelOpen) ? 0.6 : 1 }}
+            style={{ color: colors.fgPrimary, fontWeight: 400, opacity: (robodogHovered || connectionsPanelOpen) ? 0.6 : 1 }}
           >
             G
           </span>
           <p
             className="text-xl leading-relaxed mb-8 transition-opacity duration-200"
-            style={{ color: colors.fgPrimary, opacity: (articleHovered || connectionsPanelOpen) ? 0.6 : 1 }}
+            style={{ color: colors.fgPrimary, opacity: (robodogHovered || connectionsPanelOpen) ? 0.6 : 1 }}
           >
             athered around a table in a warehouse, looking at computer screens with code that refused to work, with no access to their trusted AI assistant Claude, our volunteer researchers their trusted AI assistant Claude, our volunteer researchers did not expect to be attacked by a four-legged robot.
           </p>
@@ -939,7 +850,7 @@ export default function NavPage() {
         <p className="text-xl leading-relaxed mb-8">
           <span
             className="transition-opacity duration-200"
-            style={{ color: colors.fgPrimary, opacity: (articleHovered || connectionsPanelOpen) ? 0.6 : 1 }}
+            style={{ color: colors.fgPrimary, opacity: (robodogHovered || connectionsPanelOpen) ? 0.6 : 1 }}
           >
             Yet as the mechanical whirring and rubberized footfalls grew louder, the humans startled. They had been trying, without success, to establish a connection between their computers and a robotic quadruped—a "
           </span>
@@ -948,6 +859,8 @@ export default function NavPage() {
               e.stopPropagation();
               setConnectionsPanelOpen(!connectionsPanelOpen);
             }}
+            onMouseEnter={() => setRobodogHovered(true)}
+            onMouseLeave={() => setRobodogHovered(false)}
             className="underline decoration-1 underline-offset-2"
             style={{ color: colors.fgPrimary, cursor: 'pointer' }}
           >
@@ -955,7 +868,7 @@ export default function NavPage() {
           </button>
           <span
             className="transition-opacity duration-200"
-            style={{ color: colors.fgPrimary, opacity: (articleHovered || connectionsPanelOpen) ? 0.6 : 1 }}
+            style={{ color: colors.fgPrimary, opacity: (robodogHovered || connectionsPanelOpen) ? 0.6 : 1 }}
           >
             ." Meanwhile, the competing team on the other side of the room had long since done so and were now controlling their robot with a program largely written by Claude. But in an all-too-human error of arithmetic, Team Claude had instructed their robodog to move forward at a speed of one meter per second for five seconds—failing to realize that less than five meters away was the table with the other team.
           </span>
@@ -963,14 +876,14 @@ export default function NavPage() {
 
         <p
           className="text-xl leading-relaxed mb-8 transition-opacity duration-200"
-          style={{ color: colors.fgPrimary, opacity: (articleHovered || connectionsPanelOpen) ? 0.6 : 1 }}
+          style={{ color: colors.fgPrimary, opacity: (robodogHovered || connectionsPanelOpen) ? 0.6 : 1 }}
         >
           The robot did as it was instructed, careening toward the hapless coders. The event's organizer managed to grab hold of the robot and power it off before any damage was done to robots, tables, or human limbs. The morale of the inadvertently targeted team, however, did not escape unscathed.
         </p>
 
         <p
           className="text-xl leading-relaxed mb-8 transition-opacity duration-200"
-          style={{ color: colors.fgPrimary, opacity: (articleHovered || connectionsPanelOpen) ? 0.6 : 1 }}
+          style={{ color: colors.fgPrimary, opacity: (robodogHovered || connectionsPanelOpen) ? 0.6 : 1 }}
         >
           At this point, you might be asking… What were we doing?
         </p>
