@@ -623,8 +623,8 @@ const ConnectionsPanel = ({
               Explore the connections:
             </p>
             <div className="flex items-center gap-2">
-              <span className="text-xl font-medium" style={{ color: colors.fgPrimary, fontFamily: "'Anthropic Serif', serif" }}>
-                "{keyword}"
+              <span className="text-xl font-medium italic" style={{ color: colors.fgPrimary, fontFamily: "'Anthropic Serif', serif" }}>
+                &ldquo;{keyword}&rdquo;
               </span>
               <span
                 className="px-3 pt-1 pb-0.5 rounded-full border inline-flex items-center leading-tight"
